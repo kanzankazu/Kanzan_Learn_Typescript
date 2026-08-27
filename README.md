@@ -1,28 +1,26 @@
 # 🔷 Kanzan Learn TypeScript — Zero to Hero
 
-Repo belajar TypeScript dari nol sampai production-ready. Disusun berdasarkan roadmap bertahap, mulai dari JavaScript essentials sampai advanced TypeScript patterns.
+A structured TypeScript learning repo from zero to production-ready. Built as a step-by-step roadmap from JavaScript essentials all the way to advanced TypeScript patterns.
 
-> Cocok untuk: pemula web, JS developer yang mau naik level, atau mobile developer (Android/Flutter) yang expand ke web/fullstack.
+> Best for: web beginners, JavaScript developers leveling up to TypeScript, or mobile developers (Android/Flutter) expanding into web/fullstack.
 
 ---
 
 ## 📋 Roadmap
 
-| Phase | Topik | Estimasi |
-|-------|-------|----------|
-| Phase 0 | JavaScript Essentials | 1–2 minggu |
-| Phase 1 | TypeScript Fundamentals | 2–3 minggu |
-| Phase 2 | TypeScript Intermediate | 2–3 minggu |
-| Phase 3 | Utility Types & Mapped Types | 2 minggu |
-| Phase 4 | Node.js & Module System | 2 minggu |
-| Phase 5 | Advanced TypeScript | 2–3 minggu |
-| Phase 6 | Real Ecosystem (React, Express, Testing) | ongoing |
-
-Detail tiap phase ada di [`doc/PANDUAN_ZERO_TO_HERO_TYPESCRIPT.md`](doc/PANDUAN_ZERO_TO_HERO_TYPESCRIPT.md) *(local only, di-exclude dari repo)*.
+| Phase | Topic | Key Concepts | Duration |
+|-------|-------|--------------|----------|
+| Phase 0 | JavaScript Essentials | Variables, functions, closures, promises, ES6+ syntax | 1–2 weeks |
+| Phase 1 | TypeScript Fundamentals | Basic types, type annotations, interfaces, type vs interface | 2–3 weeks |
+| Phase 2 | TypeScript Intermediate | Classes, generics, union/intersection types, type narrowing | 2–3 weeks |
+| Phase 3 | Utility Types & Mapped Types | Partial, Required, Pick, Omit, Record, conditional types | 2 weeks |
+| Phase 4 | Node.js & Module System | tsconfig.json, ESM vs CommonJS, declaration files (.d.ts) | 2 weeks |
+| Phase 5 | Advanced TypeScript | Decorators, infer, advanced generics, design patterns | 2–3 weeks |
+| Phase 6 | Real Ecosystem | TypeScript + React, Express, testing (Jest/Vitest) | ongoing |
 
 ---
 
-## 📁 Struktur Folder
+## 📁 Project Structure
 
 ```
 src/
@@ -37,7 +35,7 @@ src/
 
 ---
 
-## 🚀 Cara Jalankan
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js ≥ 18
@@ -48,12 +46,12 @@ src/
 npm install
 ```
 
-### Run file TypeScript langsung
+### Run a TypeScript file directly
 ```bash
-npx ts-node src/phase-1/basics.ts
+npx ts-node src/phase-1/01_basic_types.ts
 ```
 
-### Compile ke JS
+### Compile to JS
 ```bash
 npx tsc
 ```
@@ -67,15 +65,15 @@ npx tsc --watch
 
 ## 🛠 Tech Stack
 
-- **TypeScript** — bahasa utama
-- **ts-node** — run TS langsung tanpa compile
+- **TypeScript** — primary language
+- **ts-node** — run TS files without compiling
 - **Node.js** — runtime
 
 ---
 
-## 📖 Catatan Belajar
+## 📖 How Files Are Organized
 
-Setiap file di `src/phase-*/` adalah latihan mandiri per topik. Nama file mengikuti topik yang dipelajari, contoh:
+Each file inside `src/phase-*/` is a standalone exercise for one topic. Files are numbered to follow the learning order:
 - `01_basic_types.ts`
 - `02_functions.ts`
 - `03_interfaces.ts`
@@ -84,4 +82,4 @@ Setiap file di `src/phase-*/` adalah latihan mandiri per topik. Nama file mengik
 
 ## 👤 Author
 
-**Faisal Bahri** — Android Developer yang lagi expand ke TypeScript/Web.
+**Faisal Bahri** — Android Developer expanding into TypeScript & Web.
