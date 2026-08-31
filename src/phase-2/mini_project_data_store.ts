@@ -222,7 +222,7 @@ function printResult<T>(label: string, result: Result<T>): void {
   if (result.ok) {
     const v = result.value;
     if (v && typeof v === "object" && "name" in v) {
-      const named = v as { id: number; name: string };
+      const named = v as unknown as { id: number; name: string };
       console.log(`  ✅ ${label}: #${named.id} "${named.name}"`);
     } else {
       console.log(`  ✅ ${label}: OK`);

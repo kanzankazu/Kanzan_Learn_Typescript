@@ -43,8 +43,8 @@ function Sealed(constructor: Function) {
   Object.seal(constructor.prototype);
 }
 
-@Component({ selector: "app-root", template: "<div>Hello</div>" })
 @Sealed
+@Component({ selector: "app-root", template: "<div>Hello</div>" })
 class AppComponent {
   title = "My App";
   render() { return `<app-root>${this.title}</app-root>`; }
@@ -201,7 +201,7 @@ function MinLength(min: number) {
     Object.defineProperty(target, key, {
       get() { return value; },
       set(newValue: string) {
-        if (typeof newValue === "string" && newValue.length < min) {
+        if (typeof newValue === "string" && newValue.length > 0 && newValue.length < min) {
           throw new Error(`${key} must be at least ${min} characters, got ${newValue.length}`);
         }
         value = newValue;

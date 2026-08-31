@@ -32,6 +32,7 @@ console.log(1 / 0);         // Infinity
 console.log(-1 / 0);        // -Infinity
 console.log(0 / 0);         // NaN
 console.log(typeof NaN);    // "number" ← another JS quirk
+// @ts-expect-error — intentional: NaN === NaN is always false (JS quirk demo)
 console.log(NaN === NaN);   // false — NaN is never equal to itself
 console.log(Number.isNaN(NaN)); // true — use this instead of === NaN
 
@@ -60,20 +61,28 @@ console.log(`2 + 2 = ${2 + 2}`); // expressions work inside ${}
 // 4. Type coercion — implicit conversions (dangerous!)
 // ----------------------------------------------------------
 // Loose equality (==) triggers coercion — AVOID
+// @ts-expect-error — intentional: demonstrating loose equality coercion quirks
 console.log(0 == false);   // true ← coercion
+// @ts-expect-error — intentional: demonstrating loose equality coercion quirks
 console.log("" == false);  // true ← coercion
 console.log(null == undefined); // true ← special case
+// @ts-expect-error — intentional: demonstrating loose equality coercion quirks
 console.log(1 == "1");     // true ← coercion
 
 // Strict equality (===) — no coercion — USE THIS
+// @ts-expect-error — intentional: showing === catches type mismatch
 console.log(0 === false);   // false ✅
+// @ts-expect-error — intentional: showing === catches type mismatch
 console.log("" === false);  // false ✅
 console.log(null === undefined); // false ✅
+// @ts-expect-error — intentional: showing === catches type mismatch
 console.log(1 === "1");     // false ✅
 
 // String + number coercion
 console.log("5" + 3);   // "53" — number coerced to string
+// @ts-expect-error — intentional: demonstrating JS string-to-number coercion
 console.log("5" - 3);   // 2   — string coerced to number
+// @ts-expect-error — intentional: demonstrating JS string multiplication coercion
 console.log("5" * "3"); // 15  — both coerced to number
 
 // ----------------------------------------------------------

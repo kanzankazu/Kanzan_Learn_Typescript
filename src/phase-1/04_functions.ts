@@ -145,13 +145,13 @@ console.log(format(3.14159));         // "3.14"
 console.log(format("  hello  "));     // "HELLO"
 console.log(format(new Date()));      // e.g. "12/25/2024"
 
-// More practical overload example
-function createElement(tag: "input"): HTMLInputElement;
-function createElement(tag: "div"): HTMLDivElement;
-function createElement(tag: "span"): HTMLSpanElement;
-function createElement(tag: string): HTMLElement {
-  return document.createElement(tag);
-}
+// More practical overload example — browser pattern (comment for Node.js env)
+// function createElement(tag: "input"): HTMLInputElement;
+// function createElement(tag: "div"): HTMLDivElement;
+// function createElement(tag: "span"): HTMLSpanElement;
+// function createElement(tag: string): HTMLElement {
+//   return document.createElement(tag); // browser-only API
+// }
 // const input = createElement("input"); // typed as HTMLInputElement ✅
 
 // ----------------------------------------------------------

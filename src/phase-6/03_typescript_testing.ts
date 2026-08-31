@@ -122,7 +122,7 @@ function createAdmin(overrides: Partial<User> = {}): User {
   return createUser({ role: "admin", name: "Admin User", ...overrides });
 }
 
-function createUserList(count: number, overrides: (i: number) => Partial<User> = () => {}): User[] {
+function createUserList(count: number, overrides: (i: number) => Partial<User> = () => ({})): User[] {
   return Array.from({ length: count }, (_, i) =>
     createUser({ id: i + 1, name: `User ${i + 1}`, email: `user${i + 1}@mail.com`, ...overrides(i) })
   );
@@ -318,8 +318,8 @@ async function demo() {
 
   // Check mock call tracking
   console.log("\nSpy call tracking:");
-  console.log("findById called:", repo.findById.calls.length, "times");
-  console.log("findAll called:", repo.findAll.calls.length, "times");
+  console.log("findById called:", (repo.findById as unknown as MockFn<any>).calls.length, "times");
+  console.log("findAll called:", (repo.findAll as unknown as MockFn<any>).calls.length, "times");
 }
 
 demo();

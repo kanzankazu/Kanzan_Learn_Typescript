@@ -26,9 +26,9 @@ namespace React {
   export function useMemo<T>(fn: () => T, deps: unknown[]): T { return fn(); }
   export function forwardRef<T, P>(render: (props: P, ref: any) => any): FC<P & { ref?: any }> { return null as any; }
   export type ChangeEvent<T> = { target: T & { value: string; checked: boolean } };
-  export type MouseEvent<T = Element> = { currentTarget: T; preventDefault(): void; stopPropagation(): void };
-  export type FormEvent<T = Element> = { currentTarget: T; preventDefault(): void };
-  export type KeyboardEvent<T = Element> = { key: string; code: string; currentTarget: T };
+  export type MouseEvent<T = unknown> = { currentTarget: T; preventDefault(): void; stopPropagation(): void };
+  export type FormEvent<T = unknown> = { currentTarget: T; preventDefault(): void };
+  export type KeyboardEvent<T = unknown> = { key: string; code: string; currentTarget: T };
 }
 
 // ----------------------------------------------------------
@@ -78,17 +78,17 @@ interface ListProps<T> {
 
 interface InputProps {
   value:       string;
-  onChange:    (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?:  (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onChange:    (e: React.ChangeEvent<{ value: string; focus(): void }>) => void;
+  onKeyDown?:  (e: React.KeyboardEvent<{ value: string; focus(): void }>) => void;
   placeholder?: string;
 }
 
 // Typed event handlers — extracted for reuse
-type InputChangeHandler   = (e: React.ChangeEvent<HTMLInputElement>)   => void;
-type SelectChangeHandler  = (e: React.ChangeEvent<HTMLSelectElement>)  => void;
-type TextareaChangeHandler= (e: React.ChangeEvent<HTMLTextAreaElement>)=> void;
-type FormSubmitHandler    = (e: React.FormEvent<HTMLFormElement>)       => void;
-type ButtonClickHandler   = (e: React.MouseEvent<HTMLButtonElement>)    => void;
+type InputChangeHandler   = (e: React.ChangeEvent<{ value: string; focus(): void }>)   => void;
+type SelectChangeHandler  = (e: React.ChangeEvent<{ value: string }>)  => void;
+type TextareaChangeHandler= (e: React.ChangeEvent<{ value: string }>)=> void;
+type FormSubmitHandler    = (e: React.FormEvent<{ reset(): void }>)       => void;
+type ButtonClickHandler   = (e: React.MouseEvent<{ disabled: boolean }>)    => void;
 
 // ----------------------------------------------------------
 // 4. useState — typed state
@@ -143,7 +143,7 @@ function useUserForm(initial?: Partial<UserFormState>) {
 // ----------------------------------------------------------
 
 function useFocusOnMount() {
-  const ref = React.useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
+  const ref = React.useRef<{ value: string; focus(): void }>(null as unknown as { value: string; focus(): void });
   React.useEffect(() => {
     ref.current?.focus();
   }, []);
@@ -341,7 +341,7 @@ interface TextInputProps {
   placeholder?: string;
 }
 
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+const TextInput = React.forwardRef<{ value: string; focus(): void }, TextInputProps>(
   ({ label, value, onChange, error, placeholder }, ref) => {
     return null; // return <div>...</div> in real component
   }

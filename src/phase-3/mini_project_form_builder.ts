@@ -47,8 +47,8 @@ type FormSchema<T extends Record<string, FieldType>> = {
 // ----------------------------------------------------------
 // Derived types from a schema
 // ----------------------------------------------------------
-// FormData<Schema> — the actual data object the form produces
-type FormData<T extends Record<string, FieldType>> = {
+// FormValues<Schema> — the actual data object the form produces
+type FormValues<T extends Record<string, FieldType>> = {
   [K in keyof T]: FieldValueType[T[K]];
 };
 
@@ -73,7 +73,7 @@ type FormChangeHandlers<T extends Record<string, FieldType>> = {
 // Form state
 // ----------------------------------------------------------
 type FormState<T extends Record<string, FieldType>> = {
-  data:      FormData<T>;
+  data:      FormValues<T>;
   errors:    FormErrors<T>;
   touched:   FormTouched<T>;
   isValid:   boolean;
@@ -87,13 +87,13 @@ type FormState<T extends Record<string, FieldType>> = {
 class Form<TFields extends Record<string, FieldType>> {
   private schema:  FormSchema<TFields>;
   private state:   FormState<TFields>;
-  private initial: FormData<TFields>;
+  private initial: FormValues<TFields>;
 
   constructor(schema: FormSchema<TFields>) {
     this.schema = schema;
 
     // Build initial data from defaultValues
-    const data = {} as FormData<TFields>;
+    const data = {} as FormValues<TFields>;
     for (const key in schema) {
       const field = schema[key];
       if (field.defaultValue !== undefined) {
@@ -178,7 +178,7 @@ class Form<TFields extends Record<string, FieldType>> {
     return this.state;
   }
 
-  getData(): Readonly<FormData<TFields>> {
+  getData(): Readonly<FormValues<TFields>> {
     return this.state.data;
   }
 
@@ -195,7 +195,7 @@ class Form<TFields extends Record<string, FieldType>> {
     this.state.isSubmitting = false;
   }
 
-  async submit(onSubmit: (data: FormData<TFields>) => Promise<void>): Promise<void> {
+  async submit(onSubmit: (data: FormValues<TFields>) => Promise<void>): Promise<void> {
     if (!this.validateAll()) {
       console.log("Form has errors — cannot submit");
       return;

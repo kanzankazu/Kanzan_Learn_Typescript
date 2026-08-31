@@ -142,8 +142,8 @@ type DefiniteUser = NonNullable<MaybeUser>; // User
 function ensureValue<T>(value: T | null | undefined, fallback: NonNullable<T>): NonNullable<T> {
   return (value ?? fallback) as NonNullable<T>;
 }
-console.log(ensureValue(null, "default"));      // "default"
-console.log(ensureValue("actual", "default"));  // "actual"
+console.log(ensureValue(null, "default"));           // "default"
+console.log(ensureValue("actual" as string | null, "default"));  // "actual"
 
 // ----------------------------------------------------------
 // 10. ReturnType<T> — extract return type of a function
@@ -170,7 +170,7 @@ console.log("Config port:", cfg.port);
 type CreateUserParams = Parameters<typeof createUser>;
 // [name: string, email: string]
 
-function logCall<T extends (...args: unknown[]) => unknown>(
+function logCall<T extends (...args: any[]) => any>(
   fn: T,
   ...args: Parameters<T>
 ): ReturnType<T> {

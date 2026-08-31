@@ -73,6 +73,7 @@ function pipe<A>(a: A): A;
 function pipe<A, B>(a: A, ab: (a: A) => B): B;
 function pipe<A, B, C>(a: A, ab: (a: A) => B, bc: (b: B) => C): C;
 function pipe<A, B, C, D>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D): D;
+function pipe<A, B, C, D, E>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E): E;
 function pipe(value: unknown, ...fns: Function[]): unknown {
   return fns.reduce((acc, fn) => fn(acc), value);
 }

@@ -12,7 +12,7 @@
 
 type EventMap = Record<string, unknown>;
 
-class TypedEventEmitter<Events extends EventMap> {
+class TypedEventEmitter<Events extends Record<string, unknown>> {
   private listeners = new Map<
     keyof Events,
     Set<(data: Events[keyof Events]) => void>
@@ -49,12 +49,12 @@ class TypedEventEmitter<Events extends EventMap> {
 }
 
 // Usage
-interface AppEvents {
+type AppEvents = {
   userCreated:  { id: number; name: string; email: string };
   userDeleted:  { id: number };
   orderPlaced:  { orderId: string; total: number; userId: number };
   loginAttempt: { email: string; success: boolean; ip: string };
-}
+};
 
 const events = new TypedEventEmitter<AppEvents>();
 

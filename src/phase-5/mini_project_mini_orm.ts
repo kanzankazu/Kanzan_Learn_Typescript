@@ -325,20 +325,20 @@ console.log("Columns:", userSchema.columns.map(c => `${c.name}(${c.type ?? "any"
 
 section("Seeding data");
 const users: User[] = [
-  UserModel.create<User>({ name: "Alice",   email: "alice@mail.com", role: "admin",  isActive: true  } as Partial<User>),
-  UserModel.create<User>({ name: "Bob",     email: "bob@mail.com",   role: "user",   isActive: true  } as Partial<User>),
-  UserModel.create<User>({ name: "Charlie", email: "charlie@mail.com",role: "user",  isActive: false } as Partial<User>),
-  UserModel.create<User>({ name: "Diana",   email: "diana@mail.com", role: "admin",  isActive: true  } as Partial<User>),
+  (UserModel as any).create({ name: "Alice",   email: "alice@mail.com", role: "admin",  isActive: true  }),
+  (UserModel as any).create({ name: "Bob",     email: "bob@mail.com",   role: "user",   isActive: true  }),
+  (UserModel as any).create({ name: "Charlie", email: "charlie@mail.com",role: "user",  isActive: false }),
+  (UserModel as any).create({ name: "Diana",   email: "diana@mail.com", role: "admin",  isActive: true  }),
 ];
 
 const posts: Post[] = [
-  PostModel.create<Post>({ title: "TypeScript is awesome", authorId: 1, published: true  } as Partial<Post>),
-  PostModel.create<Post>({ title: "Generics deep dive",    authorId: 1, published: true  } as Partial<Post>),
-  PostModel.create<Post>({ title: "Decorators guide",      authorId: 2, published: false } as Partial<Post>),
-  PostModel.create<Post>({ title: "Draft post",            authorId: 3, published: false } as Partial<Post>),
+  (PostModel as any).create({ title: "TypeScript is awesome", authorId: 1, published: true  }),
+  (PostModel as any).create({ title: "Generics deep dive",    authorId: 1, published: true  }),
+  (PostModel as any).create({ title: "Decorators guide",      authorId: 2, published: false }),
+  (PostModel as any).create({ title: "Draft post",            authorId: 3, published: false }),
 ];
 
-console.log(`Created ${UserModel.count<User>() as unknown as number} users, ${PostModel.count<Post>() as unknown as number} posts`);
+console.log(`Created ${(UserModel as any).count()} users, ${(PostModel as any).count()} posts`);
 
 section("Queries");
 

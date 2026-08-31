@@ -9,6 +9,7 @@
 // 1. var — function-scoped, hoisted, re-declarable (avoid)
 // ----------------------------------------------------------
 function demoVar() {
+  // @ts-expect-error — intentional: demonstrating var hoisting (used before declaration)
   console.log(x); // undefined — var is hoisted (declaration only, not value)
   var x = 10;
   console.log(x); // 10

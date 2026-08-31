@@ -53,11 +53,15 @@ interface AuthRequest extends Request {
 interface TypedRequest<
   Params  extends Record<string, string> = {},
   Body                                   = unknown,
-  Query   extends Record<string, string | string[]> = {},
-> extends Request {
-  params: Params;
-  body:   Body;
-  query:  Query;
+  Query   extends Record<string, string | string[] | undefined> = {},
+> {
+  params:  Params;
+  body:    Body;
+  query:   Query;
+  headers: Record<string, string | string[] | undefined>;
+  method:  string;
+  path:    string;
+  ip?:     string;
 }
 
 // ----------------------------------------------------------
@@ -90,6 +94,7 @@ interface UserQuery {
   limit?:  string;
   search?: string;
   role?:   string;
+  [key: string]: string | string[] | undefined;
 }
 
 type ListUsersHandler = (
@@ -109,7 +114,7 @@ type AuthMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => v
 const requestId: Middleware = (req, res, next) => {
   const id = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
   res.set("X-Request-ID", id);
-  (req as Record<string, unknown>)["requestId"] = id;
+  (req as unknown as Record<string, unknown>)["requestId"] = id;
   next();
 };
 
@@ -151,7 +156,7 @@ function authenticate(secret: string): Middleware {
       // In real app: jwt.verify(token, secret)
       // Mock: decode base64
       const payload = JSON.parse(Buffer.from(token.split(".")[1] ?? "", "base64").toString());
-      (req as Record<string, unknown>)["user"] = payload;
+      (req as unknown as Record<string, unknown>)["user"] = payload;
       next();
     } catch {
       res.status(401).json({ error: "Invalid token" });
@@ -162,7 +167,7 @@ function authenticate(secret: string): Middleware {
 // Role-based authorization middleware
 function authorize(...roles: string[]): Middleware {
   return (req, res, next) => {
-    const user = (req as Record<string, unknown>)["user"] as { role: string } | undefined;
+    const user = (req as unknown as Record<string, unknown>)["user"] as { role: string } | undefined;
     if (!user) {
       res.status(401).json({ error: "Not authenticated" });
       return;

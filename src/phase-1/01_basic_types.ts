@@ -36,7 +36,7 @@ let flexible: any = "hello";
 flexible = 42;       // ✅ allowed
 flexible = true;     // ✅ allowed
 flexible = { a: 1 }; // ✅ allowed
-flexible.nonExistent.deeply.nested; // ✅ no error — but crashes at runtime!
+// flexible.nonExistent.deeply.nested; // 💥 no TS error, but crashes at runtime!
 
 // When to use any:
 // - Migrating JS → TS gradually
@@ -140,18 +140,20 @@ console.log(config);
 // ----------------------------------------------------------
 // 8. Type assertions — "trust me, I know what this is"
 // ----------------------------------------------------------
-const input = document.getElementById("username"); // HTMLElement | null
-// TypeScript doesn't know it's specifically an HTMLInputElement
+// NOTE: document/HTMLInputElement are browser-only APIs.
+// In a React/browser project add "DOM" to tsconfig lib.
+// Below is shown as a comment pattern — not executed in Node.js.
 
-// as syntax (preferred)
-const inputElement = input as HTMLInputElement;
+// const input = document.getElementById("username"); // HTMLElement | null
+// const inputElement = input as HTMLInputElement;     // as syntax (preferred)
+// const inputElement2 = <HTMLInputElement>input;      // angle-bracket (not in JSX)
+// const definitelyElement = input!;                   // non-null assertion
 
-// angle-bracket syntax (not allowed in JSX/TSX)
-// const inputElement2 = <HTMLInputElement>input;
-
-// Non-null assertion — tells TS "this is definitely not null"
-const definitelyElement = input!; // use with caution
-// If input is actually null at runtime, this will crash
+// Equivalent pattern that runs in Node.js:
+const rawValue: unknown = "some-input-value";
+const inputValue = rawValue as string; // type assertion
+const definitelyString = rawValue!; // non-null assertion (same concept)
+console.log("Type assertion demo:", inputValue.toUpperCase());
 
 // Double assertion — only when you truly need to
 const forceTyped = "hello" as unknown as number; // ⚠️ unsafe

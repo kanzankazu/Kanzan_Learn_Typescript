@@ -46,7 +46,21 @@ src/
 npm install
 ```
 
-### Run a TypeScript file directly
+### Interactive runner — easiest way to explore
+```bash
+npx ts-node run.ts
+```
+Browse phases, pick a file, and run it — all from a menu.
+
+### Runner CLI flags
+```bash
+npx ts-node run.ts --list          # list all files with descriptions
+npx ts-node run.ts --phase 2       # run all phase 2 files
+npx ts-node run.ts --file 5        # run file #5 from the list
+npx ts-node run.ts --all           # run every non-interactive file
+```
+
+### Run a file directly
 ```bash
 npx ts-node src/phase-1/01_basic_types.ts
 ```
@@ -54,11 +68,6 @@ npx ts-node src/phase-1/01_basic_types.ts
 ### Compile to JS
 ```bash
 npx tsc
-```
-
-### Watch mode
-```bash
-npx tsc --watch
 ```
 
 ---

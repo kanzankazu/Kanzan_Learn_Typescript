@@ -125,7 +125,7 @@ type ReadOnly<T> = {
 // ✅ type for tuples
 type Pair    = [string, number];
 type RGB     = [r: number, g: number, b: number];
-type Handler = (event: MouseEvent) => void;
+type Handler = (event: { type: string; target: unknown }) => void; // browser: use MouseEvent
 
 // ❌ interface for tuples is verbose and uncommon
 // interface PairInterface { 0: string; 1: number; }
